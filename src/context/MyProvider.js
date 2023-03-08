@@ -28,15 +28,15 @@ function MyProvider({ children }) {
     filterValues.map(({ tag, condition, number }) => {
       switch (condition) {
       case 'maior que':
-        return setSearchPlanets(planets
+        return setSearchPlanets(searchPlanets
           .filter((planet) => Number(planet[tag]) > Number(number)));
 
       case 'menor que':
-        return setSearchPlanets(planets
+        return setSearchPlanets(searchPlanets
           .filter((planet) => Number(planet[tag]) < Number(number)));
 
       case 'igual a':
-        return setSearchPlanets(planets
+        return setSearchPlanets(searchPlanets
           .filter((planet) => Number(planet[tag]) === Number(number)));
 
       default:
@@ -44,7 +44,7 @@ function MyProvider({ children }) {
       }
       return planets;
     });
-  }, [planets, filterValues]);
+  }, [searchPlanets, filterValues, planets]);
 
   const state = useMemo(() => ({
     planets,
