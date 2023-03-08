@@ -1,17 +1,15 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
-import SearchFilter from './SearchFilter';
+import SearchNameFilter from './SearchNameFilter';
+import SearchNumberFilter from './SearchNumberFilter';
 
 function Table() {
-  const { planets, titles, requisition } = useContext(MyContext);
-
-  useEffect(() => {
-    requisition();
-  }, []);
+  const { titles, searchPlanets } = useContext(MyContext);
 
   return (
     <div>
-      <SearchFilter />
+      <SearchNameFilter />
+      <SearchNumberFilter />
       <table>
         <thead>
           <tr>
@@ -22,7 +20,7 @@ function Table() {
           </tr>
         </thead>
         {
-          planets.map((data, index) => (
+          searchPlanets?.map((data, index) => (
             <tbody key={ index }>
               <tr>
                 <td>{ data.name }</td>
