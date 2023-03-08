@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import MyContext from '../context/MyContext';
 
 function SearchNumberFilter() {
+  const [options, setOptions] = useState(['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water']);
   const [values, setValues] = useState({
     tag: 'population',
     condition: 'maior que',
@@ -16,11 +18,9 @@ function SearchNumberFilter() {
         data-testid="column-filter"
         onChange={ ({ target }) => setValues({ ...values, tag: target.value }) }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {
+          options.map((e, i) => <option key={ i } value={ e }>{e}</option>)
+        }
       </select>
       <select
         data-testid="comparison-filter"
@@ -41,6 +41,7 @@ function SearchNumberFilter() {
         type="button"
         onClick={ () => {
           setFilterValues([...filterValues, values]);
+          setOptions(options.filter((e) => e !== values.tag));
         } }
       >
         FILTRAR
