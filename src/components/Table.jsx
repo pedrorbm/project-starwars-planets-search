@@ -32,7 +32,7 @@ function Table() {
           searchPlanets?.map((data, index) => (
             <tbody key={ index }>
               <tr>
-                <td>{ data.name }</td>
+                <td data-testid="planet-name">{ data.name }</td>
                 <td>{ data.rotation_period }</td>
                 <td>{ data.orbital_period }</td>
                 <td>{ data.diameter }</td>

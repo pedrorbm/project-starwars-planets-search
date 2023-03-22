@@ -53,6 +53,7 @@ function SearchNumberFilter() {
               {`${element.tag} ${element.condition} ${element.number}`}
             </span>
             <button
+              data-testid="btn-remove"
               type="button"
               onClick={ () => {
                 setFilterValues(filterValues.filter((e) => e !== filterValues[index]));

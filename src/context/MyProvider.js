@@ -15,7 +15,7 @@ function MyProvider({ children }) {
       setPlanets(results.results);
     };
     requisition();
-  }, [planets]);
+  }, []);
 
   useEffect(() => {
     const filter = planets.filter((planet) => planet.name.includes(inputName));
@@ -24,8 +24,6 @@ function MyProvider({ children }) {
 
   useEffect(() => {
     let array = planets;
-    console.log(planets);
-    console.log(filterValues);
 
     if (filterValues.length > 0) {
       array = filterValues.reduce((acc, { tag, condition, number }) => {
@@ -38,20 +36,14 @@ function MyProvider({ children }) {
           return acc
             .filter((planet) => Number(planet[tag]) < Number(number));
 
-        case 'igual a':
+        default:
           return acc
             .filter((planet) => Number(planet[tag]) === Number(number));
-
-        default:
-          break;
         }
-        return array;
       }, array);
     }
 
     setSearchPlanets(array);
-    console.log('array:', array);
-    console.log('search planets:', searchPlanets);
   }, [filterValues, planets]);
 
   const state = useMemo(() => ({
