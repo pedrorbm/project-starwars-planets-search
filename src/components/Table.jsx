@@ -4,7 +4,7 @@ import SearchNameFilter from './SearchNameFilter';
 import SearchNumberFilter from './SearchNumberFilter';
 
 function Table() {
-  const { titles, searchPlanets } = useContext(MyContext);
+  const { searchPlanets } = useContext(MyContext);
 
   return (
     <div>
@@ -13,10 +13,19 @@ function Table() {
       <table>
         <thead>
           <tr>
-            {
-              titles.filter((title) => title !== 'residents').map((title, index) => (
-                <th key={ index }>{ title.replace('_', ' ') }</th>))
-            }
+            <th>Name</th>
+            <th>Rotation Period</th>
+            <th>Orbital Period</th>
+            <th>Diameter</th>
+            <th>Climate</th>
+            <th>Gravity</th>
+            <th>Terrain</th>
+            <th>Surface Water</th>
+            <th>Population</th>
+            <th>Films</th>
+            <th>Created</th>
+            <th>Edited</th>
+            <th>URL</th>
           </tr>
         </thead>
         {

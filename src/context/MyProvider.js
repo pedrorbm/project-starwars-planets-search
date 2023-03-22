@@ -5,7 +5,6 @@ import planetsAPI from '../services/planetsAPI';
 
 function MyProvider({ children }) {
   const [planets, setPlanets] = useState([]);
-  const [titles, setTitles] = useState([]);
   const [searchPlanets, setSearchPlanets] = useState([]);
   const [inputName, setInputName] = useState('');
   const [filterValues, setFilterValues] = useState([]);
@@ -14,7 +13,6 @@ function MyProvider({ children }) {
     const requisition = async () => {
       const results = await planetsAPI();
       setPlanets(results.results);
-      setTitles(Object.keys(results.results[0]));
     };
     requisition();
   }, [planets]);
@@ -25,36 +23,45 @@ function MyProvider({ children }) {
   }, [inputName, planets]);
 
   useEffect(() => {
-    filterValues.map(({ tag, condition, number }) => {
-      switch (condition) {
-      case 'maior que':
-        return setSearchPlanets(searchPlanets
-          .filter((planet) => Number(planet[tag]) > Number(number)));
+    let array = planets;
+    console.log(planets);
+    console.log(filterValues);
 
-      case 'menor que':
-        return setSearchPlanets(searchPlanets
-          .filter((planet) => Number(planet[tag]) < Number(number)));
+    if (filterValues.length > 0) {
+      array = filterValues.reduce((acc, { tag, condition, number }) => {
+        switch (condition) {
+        case 'maior que':
+          return acc
+            .filter((planet) => Number(planet[tag]) > Number(number));
 
-      case 'igual a':
-        return setSearchPlanets(searchPlanets
-          .filter((planet) => Number(planet[tag]) === Number(number)));
+        case 'menor que':
+          return acc
+            .filter((planet) => Number(planet[tag]) < Number(number));
 
-      default:
-        break;
-      }
-      return planets;
-    });
-  }, [searchPlanets, filterValues, planets]);
+        case 'igual a':
+          return acc
+            .filter((planet) => Number(planet[tag]) === Number(number));
+
+        default:
+          break;
+        }
+        return array;
+      }, array);
+    }
+
+    setSearchPlanets(array);
+    console.log('array:', array);
+    console.log('search planets:', searchPlanets);
+  }, [filterValues, planets]);
 
   const state = useMemo(() => ({
     planets,
     setPlanets,
-    titles,
     searchPlanets,
     setInputName,
     filterValues,
     setFilterValues,
-  }), [planets, titles, searchPlanets, filterValues]);
+  }), [planets, searchPlanets, filterValues]);
 
   return (
     <MyContext.Provider value={ state }>

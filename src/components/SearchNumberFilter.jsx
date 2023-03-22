@@ -48,11 +48,29 @@ function SearchNumberFilter() {
       </button>
       {
         filterValues.map((element, index) => (
-          <span key={ index }>
-            {`${element.tag} ${element.condition} ${element.number}`}
-          </span>
+          <div key={ index } data-testid="filter">
+            <span>
+              {`${element.tag} ${element.condition} ${element.number}`}
+            </span>
+            <button
+              type="button"
+              onClick={ () => {
+                setFilterValues(filterValues.filter((e) => e !== filterValues[index]));
+              } }
+            >
+              EXCLUIR
+
+            </button>
+          </div>
         ))
       }
+      <button
+        data-testid="button-remove-filters"
+        type="button"
+        onClick={ () => { setFilterValues([]); } }
+      >
+        REMOVER FILTROS
+      </button>
     </div>
   );
 }
